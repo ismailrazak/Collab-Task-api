@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     #local
     "users",
     #3rd party
@@ -51,7 +52,7 @@ INSTALLED_APPS = [
 'rest_framework.authtoken',
 
 ]
-
+SITE_ID = 1
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -169,3 +170,8 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+
+#URL TO CHECK IF GOOGLE LOGIN IS WORKING
+
+#https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://127.0.0.1:8000/google/login/callback/&prompt=consent&response_type=code&client_id=640889753421-0jnc0kcfugt0q672hvknhp5njhokvnb7.apps.googleusercontent.com&scope=openid%20email%20profile&access_type=offline
