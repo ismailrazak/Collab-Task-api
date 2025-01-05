@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User
+from django.contrib.auth.hashers import check_password
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True,required=False)
@@ -19,11 +20,14 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         if validated_data.get('new_password'):
-            if instance.password == validated_data.get('password'):
+            if check_password(validated_data.get('password'),instance.password):
                 instance.set_password(validated_data.get('new_password'))
-                return instance
+                instance.save()
+            else:
+                raise serializers.ValidationError('Password does not match existing password.')
+        return instance
 
-
+#todo : check password update fucntionality
 
     class Meta:
         model =User
