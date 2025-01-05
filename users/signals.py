@@ -5,8 +5,9 @@ from django.conf import settings
 
 @receiver(pre_save,sender=settings.AUTH_USER_MODEL)
 def username_generation(sender,instance,**kwargs):
+    print(instance.username)
     if not instance.username:
-        username = instance.first_name+instance.last_name
+        username = f'{instance.first_name}_{instance.last_name}'
         counter=0
         while(get_user_model().objects.filter(username=username).exists()):
             username = f'{instance.first_name}_{instance.last_name}_{counter}'
