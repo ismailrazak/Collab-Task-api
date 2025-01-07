@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     #local
     "users",
+    "house",
     #3rd party
     'rest_framework',
     'allauth',
@@ -141,9 +142,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #django conf
 
 AUTH_USER_MODEL = 'users.User'
-# LOGIN_REDIRECT_URL = "pages:home"
-# LOGIN_URL = "login"
-# LOGOUT_REDIRECT_URL = "pages:home"
+
+MEDIA_URL='media/'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',

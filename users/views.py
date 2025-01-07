@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from  rest_framework.viewsets import ModelViewSet
+from rest_framework.mixins import RetrieveModelMixin,UpdateModelMixin
+from  rest_framework.viewsets import ModelViewSet,GenericViewSet
 from .models import User
 from .serializers import UserSerializer
 from .permissions import IsUserOrReadOnly

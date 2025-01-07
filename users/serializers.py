@@ -6,7 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True,required=False)
     username = serializers.CharField(read_only=True)
     new_password = serializers.CharField(write_only=True,required=False)
-
+    house = serializers.HyperlinkedRelatedField(read_only=True,view_name='house-detail')
     def validate(self, data):
         request = self.context.get('request')
         if request.method =='POST':
@@ -45,8 +45,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        model =User
-        fields = ['id','url','username','first_name','last_name','email','password','new_password','image']
+        model = User
+        fields = ['id','url','username','first_name','last_name','email','password','new_password','image','house']
 
 
 
