@@ -15,12 +15,14 @@ auth_url_patterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("google/login/", GoogleLoginView.as_view(), name="google_login"),
 ]
-
+if settings.DEBUG:
+    auth_url_patterns.append(path('verify/',include('rest_framework.urls')))
 
 api_url_patterns = [
     path('auth/', include(auth_url_patterns)),
     path('accounts/',include('users.urls')),
-    path('houses/',include('house.urls'))
+    path('houses/',include('house.urls')),
+    path('tasks/',include('tasks.urls')),
 ]
 
 urlpatterns = [

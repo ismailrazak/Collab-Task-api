@@ -5,7 +5,7 @@ from django.conf import settings
 
 @receiver(pre_save,sender=settings.AUTH_USER_MODEL)
 def username_generation(sender,instance,**kwargs):
-    print(instance.username)
+
     if not instance.username:
         username = f'{instance.first_name}_{instance.last_name}'
         counter=0
@@ -13,4 +13,3 @@ def username_generation(sender,instance,**kwargs):
             username = f'{instance.first_name}_{instance.last_name}_{counter}'
             counter+=1
         instance.username = username
-    #NO NEED TO SAVE FOR PRE SAVE CAUSE IT SAVES ALREADY
