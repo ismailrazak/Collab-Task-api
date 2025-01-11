@@ -5,6 +5,20 @@ class HouseSerializer(serializers.ModelSerializer):
     members = serializers.HyperlinkedRelatedField(read_only=True,many=True,view_name='user-detail')
     manager = serializers.HyperlinkedRelatedField(read_only=True,view_name='user-detail')
     tasklist = serializers.HyperlinkedRelatedField(many =True,read_only=True,view_name='tasklist-detail',source='task_lists')
+
+    def create(self, validated_data):
+        try:
+            house =House.objects.create(**validated_data)
+            user=self.context['request'].user
+            if user.house:
+                raise serializers.ValidationError({'error':'user is already a member of a house.Leave existing house to create a new one.'})
+            house.manager=user
+            user.house=house
+            user.save()
+            house.save()
+            return house
+        except Exception as e:
+            raise serializers.ValidationError({'error':f'{e}'})
     class Meta:
         model = House
         fields = ['id','url','name','image','created_on','description',

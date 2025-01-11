@@ -43,6 +43,8 @@ class HouseViewSet(ModelViewSet):
             house = self.get_object()
             if house.members.filter(id=request.user.id).exists():
                 user.house = None
+                if user.managed_house:
+                    user.managed_house=None
                 user.save()
                 return Response({'info':'user has left the house successfully.'},status=status.HTTP_200_OK)
             else:
