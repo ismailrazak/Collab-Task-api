@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from django.conf.global_settings import AUTH_USER_MODEL
-
+from google.oauth2 import service_account
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -174,7 +174,21 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
+# django storages conf
 
-#URL TO CHECK IF GOOGLE LOGIN IS WORKING
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "OPTIONS": {
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
-#https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://127.0.0.1:8000/google/login/callback/&prompt=consent&response_type=code&client_id=640889753421-0jnc0kcfugt0q672hvknhp5njhokvnb7.apps.googleusercontent.com&scope=openid%20email%20profile&access_type=offline
+GS_BUCKET_NAME = "task_api_prod_bucket"
+GS_FILE_OVERWRITE=True
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+'task-api-447509-0edcc1968d00.json'
+)
