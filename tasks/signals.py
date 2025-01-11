@@ -1,5 +1,7 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,post_init
 from django.dispatch import receiver
+from django.template.base import kwarg_re
+
 from .models import TaskList,Task,NOT_COMPLETED,COMPLETED
 from house.models import House
 from django.utils import timezone
@@ -19,17 +21,18 @@ def update_house_points(sender,instance,created,**kwargs):
                 house.save()
 
 
+@receiver(post_init,sender=Task)
+def remember_task_status(instance,**kwargs):
+    instance.previous_status = instance.status
 
 @receiver(post_save,sender=Task)
 def update_tasks_count(instance,created,**kwargs):
     if not created:
         house = instance.tasklist.house
         tasklist = instance.tasklist
-        if instance.status == COMPLETED:
+        if instance.previous_status != instance.status:
             completed_tasks_count=tasklist.tasks.filter(status=COMPLETED).count()
             house.completed_tasks_count=completed_tasks_count
-            house.save()
-        elif instance.status == NOT_COMPLETED:
             not_completed_tasks_count=tasklist.tasks.filter(status=NOT_COMPLETED).count()
             house.not_completed_tasks_count=not_completed_tasks_count
             house.save()

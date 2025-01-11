@@ -4,13 +4,19 @@ from .models import House
 from .permissions import IsHouseManagerOrNone
 from rest_framework.decorators import action, permission_classes
 from rest_framework.views import Response
-from rest_framework import status
+from rest_framework import status,filters
 from django.contrib.auth import get_user_model
+from django_filters.rest_framework import DjangoFilterBackend
+
 class HouseViewSet(ModelViewSet):
     models = House
     queryset = House.objects.all()
     serializer_class = HouseSerializer
     permission_classes = IsHouseManagerOrNone,
+    filter_backends =filters.SearchFilter,filters.OrderingFilter, DjangoFilterBackend,
+    search_fields = 'name',
+    ordering_fields = 'completed_tasks_count',
+    filterset_fields = 'members',
 
     @action(detail=True,methods=['post','get'],permission_classes=[])
     def join(self,request,pk):

@@ -6,11 +6,14 @@ from .serializers import TaskSerializer,TaskListSerializer,AttachmentSerializer
 from .permissions import IsTaskListCreatorOrNone,IsAllowedToEditAttachmentOrNone,IsAllowedToEditTaskOrNone
 from .models import COMPLETED
 from django.utils import timezone
+from django_filters.rest_framework import DjangoFilterBackend
 
 class TaskViewSet(ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = IsAllowedToEditTaskOrNone,
+    filter_backends = DjangoFilterBackend,
+    filterset_fields = 'status',
 
     def get_queryset(self):
         queryset = super().get_queryset()
