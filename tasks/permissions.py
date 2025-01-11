@@ -1,4 +1,5 @@
-from  rest_framework import permissions
+from rest_framework import permissions
+
 
 class IsTaskListCreatorOrNone(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -13,6 +14,7 @@ class IsTaskListCreatorOrNone(permissions.BasePermission):
             return True
         return False
 
+
 class IsAllowedToEditTaskOrNone(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
@@ -25,6 +27,7 @@ class IsAllowedToEditTaskOrNone(permissions.BasePermission):
         if request.user.house == obj.tasklist.house:
             return True
         return False
+
 
 class IsAllowedToEditAttachmentOrNone(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -40,5 +43,5 @@ class IsAllowedToEditAttachmentOrNone(permissions.BasePermission):
         return False
 
 
-#todo : create an auto update to add manager to list and to remove manager when deleted.
+# todo : create an auto update to add manager to list and to remove manager when deleted.
 # todo : auto add manager to house when house is created.

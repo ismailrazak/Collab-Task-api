@@ -1,9 +1,11 @@
 from rest_framework import permissions
 
+
 class IsUserOrReadOnly(permissions.BasePermission):
-    '''
+    """
     Custom permission for users view to allow edit if user is accessing his own profile else set to read only.
-    '''
+    """
+
     def has_permission(self, request, view):
         return True
 
