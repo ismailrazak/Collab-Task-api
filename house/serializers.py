@@ -18,7 +18,7 @@ class HouseSerializer(serializers.ModelSerializer):
         try:
             house = House.objects.create(**validated_data)
             user = self.context["request"].user
-            if user.house:
+            if user.house or user.managed_house:
                 raise serializers.ValidationError(
                     {
                         "error": "user is already a member of a house.Leave existing house to create a new one."
