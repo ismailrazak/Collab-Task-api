@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # deployment checklist
-DEBUG = False
+DEBUG = True
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = False
@@ -37,7 +37,7 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    CSRF_TRUSTED_ORIGINS = ["https://*", "https://web-production-1c655.up.railway.app/"]
+    CSRF_TRUSTED_ORIGINS = ["https://web-production-1c655.up.railway.app"]
 
 SECRET_KEY = config("SECRET_KEY")
 
