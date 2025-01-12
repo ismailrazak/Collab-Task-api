@@ -1,5 +1,8 @@
 # Collaborative Task Management Application
 
+## Live Web Link:
+https://web-production-1c655.up.railway.app/api/houses/
+
 A collaborative task management app for households to create, assign, and complete tasks. Integrated a point-based system to boost participation and accountability, with real-time task tracking. Designed to enhance productivity and promote teamwork in shared living spaces.
 
 ## Features
@@ -27,9 +30,17 @@ A collaborative task management app for households to create, assign, and comple
 
 Registration:
 ```
-/accounts/users/
+api/accounts/users/
 ```
 
+To Login:
+```
+api/auth/login/
+```
+To logout:
+```
+api/auth/logout/
+```
 Authentication:
 ```
 /auth/
