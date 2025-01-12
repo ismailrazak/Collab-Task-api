@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import json
 from datetime import timedelta
 from pathlib import Path
 
@@ -37,6 +38,7 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = ["https://*", "https://web-production-e303e.up.railway.app"]
+
 SECRET_KEY = config("SECRET_KEY")
 
 
@@ -196,9 +198,8 @@ SIMPLE_JWT = {
 
 GS_BUCKET_NAME = "task_api_prod_bucket"
 GS_FILE_OVERWRITE = True
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    "task-api-447509-0edcc1968d00.json"
-)
-
+gs_json_data = json.loads(config("DJANGO_GS_CREDENTIALS"))
+gs_json_data["private_key"] = gs_json_data["private_key"].replace("\\n", "\n")
+GS_CREDENTIALS = service_account.Credentials.from_service_account_info(gs_json_data)
 
 # whitenoise conf

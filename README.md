@@ -43,21 +43,25 @@ Accounts:
 /accounts/
 ```
 
-Houses:
+To create new houses:
 ```
 /houses/
 ```
 
-Tasks:
+To create new tasklists for a house:
 ```
-/tasks/
+/tasks/tasklist/
+```
+To create new task for a house:
+```
+/tasks/tasks
 ```
 
 ## Setup Instructions
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/ismailrazak/Collab-Task-api.git
    ```
 
 2. Install dependencies:
