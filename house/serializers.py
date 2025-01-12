@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from rest_framework import serializers
 
 from .models import House
@@ -15,14 +16,20 @@ class HouseSerializer(serializers.ModelSerializer):
     )
 
     def create(self, validated_data):
+
+        user = self.context["request"].user
+        if user.house:
+            raise serializers.ValidationError(
+                {
+                    "error": "user is already a member of a house.Leave existing house to create a new one."
+                }
+            )
+
+        if House.objects.filter(manager=user).exists():
+            raise serializers.ValidationError(
+                {"error": "user is already a manager of a house."}
+            )
         try:
-            user = self.context["request"].user
-            if user.house:
-                raise serializers.ValidationError(
-                    {
-                        "error": "user is already a member of a house.Leave existing house to create a new one."
-                    }
-                )
             house = House.objects.create(**validated_data)
             house.manager = user
             user.house = house
