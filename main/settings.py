@@ -37,7 +37,7 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    CSRF_TRUSTED_ORIGINS = ["https://web-production-1c655.up.railway.app/*"]
+    CSRF_TRUSTED_ORIGINS = ["*"]
 
 SECRET_KEY = config("SECRET_KEY")
 
