@@ -41,7 +41,3 @@ class IsAllowedToEditAttachmentOrNone(permissions.BasePermission):
         if request.user.house == obj.task.tasklist.house:
             return True
         return False
-
-
-# todo : create an auto update to add manager to list and to remove manager when deleted.
-# todo : auto add manager to house when house is created.

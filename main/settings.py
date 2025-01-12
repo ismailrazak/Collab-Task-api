@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 
+from decouple import config
 from django.conf.global_settings import AUTH_USER_MODEL
 from google.oauth2 import service_account
 
@@ -23,13 +24,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-#*7(%wg_&gi25s7nkya93_#)^bqgag!)wt8&x7$nmm)bx68a53"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# deployment checklist
+DEBUG = False
 
-ALLOWED_HOSTS = []
+if not DEBUG:
+    SECURE_SSL_REDIRECT = False
+    SECURE_HSTS_SECONDS = 2592000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    ALLOWED_HOSTS = ["*"]
+    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    CSRF_TRUSTED_ORIGINS = ["https://*", "https://web-production-e303e.up.railway.app"]
+SECRET_KEY = config("SECRET_KEY")
 
 
 # Application definition
@@ -57,8 +65,10 @@ INSTALLED_APPS = [
     "django_filters",
 ]
 SITE_ID = 1
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -145,18 +155,25 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # django conf
 
 AUTH_USER_MODEL = "users.User"
-
+STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "media/"
+
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "OPTIONS": {},
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # rest framework conf
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
@@ -177,18 +194,11 @@ SIMPLE_JWT = {
 
 # django storages conf
 
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
-        "OPTIONS": {},
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
-
 GS_BUCKET_NAME = "task_api_prod_bucket"
 GS_FILE_OVERWRITE = True
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     "task-api-447509-0edcc1968d00.json"
 )
+
+
+# whitenoise conf
