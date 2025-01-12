@@ -33,7 +33,7 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = False
     SECURE_HSTS_SECONDS = 2592000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = ["*", "web-production-1c655.up.railway.app"]
     SECURE_HSTS_PRELOAD = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
