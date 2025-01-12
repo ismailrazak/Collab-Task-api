@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # deployment checklist
-DEBUG = True
+DEBUG = False
 
-if DEBUG:
+if not DEBUG:
     SECURE_SSL_REDIRECT = False
     SECURE_HSTS_SECONDS = 2592000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
