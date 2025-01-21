@@ -50,7 +50,8 @@ class HouseViewSet(ModelViewSet):
 
         except Exception as e:
             return Response(
-                {"error": f"{e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"error": f"error while joining."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
     @action(detail=True, methods=["post", "get"], permission_classes=[])
@@ -75,7 +76,8 @@ class HouseViewSet(ModelViewSet):
                 )
         except Exception as e:
             return Response(
-                {"error": f"{e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"error": f"error while leaving."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
     @action(
@@ -105,10 +107,12 @@ class HouseViewSet(ModelViewSet):
                 )
             else:
                 return Response(
-                    {"info": "user does not exist."}, status=status.HTTP_400_BAD_REQUEST
+                    {"info": "user does not belong to this house."},
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
 
         except Exception as e:
             return Response(
-                {"info": f"{e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"info": f"error while removing."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
