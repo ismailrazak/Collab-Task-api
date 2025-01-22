@@ -3,7 +3,6 @@ from django.test import TestCase
 from django.urls import reverse
 from mixer.backend.django import mixer
 from rest_framework.test import APIClient
-from six import assertRaisesRegex
 
 from house.models import House
 

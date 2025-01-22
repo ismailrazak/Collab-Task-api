@@ -41,6 +41,7 @@ class TaskViewSet(ModelViewSet):
             task = self.get_object()
             if task.status == COMPLETED:
                 serializer.save(completed_by=None, completed_on=None)
+        serializer.save()
 
 
 class TaskListViewSet(
