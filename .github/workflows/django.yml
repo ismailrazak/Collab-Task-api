@@ -1,19 +1,12 @@
-name: Django CI
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.12]
+        python-version: [3.12.4]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,4 +20,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        pytest --ds=main.local_settings 
+        pytest --ds=main.local_settings
+    - name: Generate code coverage badge
+      run: |
+        coverage-badge -o coverage.svg
