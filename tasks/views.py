@@ -61,6 +61,9 @@ class TaskListViewSet(
         IsTaskListCreatorOrNone,
     ]
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 
 class AttachmentViewSet(
     GenericViewSet,
