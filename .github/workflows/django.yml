@@ -1,16 +1,8 @@
-name: Django CI
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
 jobs:
   build:
-    env:
-      SECRET_KEY=django-insecure-8+mql3ze4$00&4j==j=w)pd)=%j2xhm^iy!21!jefk%ffsp%)w
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: django-insecure-8+mql3ze4$00&4j==j=w)pd)=%j2xhm^iy!21!jefk%ffsp%)w
     strategy:
       max-parallel: 4
       matrix:
