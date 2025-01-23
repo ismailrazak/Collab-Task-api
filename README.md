@@ -1,5 +1,6 @@
 # Collaborative Task Management Application
 ![coverage.svg](coverage.svg)
+![Actions](https://github.com/ismailrazak/Collab-Task-api/actions/workflows/django.yml/badge.svg)
 ## Live Web Link:
 https://web-production-f181e.up.railway.app/api/houses/
 

@@ -28,3 +28,6 @@ jobs:
     - name: Run Tests
       run: |
         pytest
+    - name: Generate code coverage badge
+      run: !
+        coverage-badge -o coverage.svg
