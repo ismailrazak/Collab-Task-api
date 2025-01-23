@@ -7,10 +7,10 @@ from mixer.backend.django import mixer
 from pre_commit.commands.migrate_config import migrate_config
 from rest_framework.test import APIClient
 
-from tasks.models import TaskList
+from tasks.models import Attachment, TaskList
 
 
-class TestTaskListPermission(TestCase):
+class TestTaskPermission(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -33,5 +33,25 @@ class TestTaskListPermission(TestCase):
 
         response = self.client.get(
             reverse("tasklist-detail", kwargs={"pk": self.tasklist.id})
+        )
+        assert response.status_code == 401
+        response1 = self.client.get(
+            reverse("tasklist-detail", kwargs={"pk": self.tasklist.id}),
+            headers=self.user1_headers,
+        )
+        assert response1.status_code == 403
+
+    def test_attachment_permission(self):
+        response = self.client.get(reverse("attachment-list"))
+        assert response.status_code == 405
+
+        response1 = self.client.post(reverse("attachment-list"), data={"name": "test"})
+
+        assert response1.status_code == 401
+
+    def test_attachment_detail_permission(self):
+        attachment = mixer.blend(Attachment)
+        response = self.client.get(
+            reverse("attachment-detail", kwargs={"pk": attachment.id})
         )
         assert response.status_code == 401

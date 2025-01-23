@@ -16,5 +16,4 @@ class IsUserOrReadOnly(permissions.BasePermission):
         if not request.user.is_anonymous:
             if request.user == obj:
                 return True
-            return False
         return False

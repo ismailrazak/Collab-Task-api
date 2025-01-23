@@ -38,6 +38,7 @@ class IsAllowedToEditAttachmentOrNone(permissions.BasePermission):
         return False
 
     def has_object_permission(self, request, view, obj):
-        if request.user.house == obj.task.tasklist.house:
-            return True
+        if not request.user.is_anonymous:
+            if request.user.house == obj.task.tasklist.house:
+                return True
         return False
