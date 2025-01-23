@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DJANGO_GS_CREDENTIALS: ${{ secrets.DJANGO_GS_CREDENTIALS }}
     strategy:
       max-parallel: 4
       matrix:
