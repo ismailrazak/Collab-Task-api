@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from mixer.backend.django import mixer
-from openid.server.trustroot import host_segment_re
 from rest_framework.test import APIClient
 
 from house.models import House

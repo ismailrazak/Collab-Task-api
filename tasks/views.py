@@ -26,9 +26,12 @@ class TaskViewSet(ModelViewSet):
     filterset_fields = ("status",)
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        updated_queryset = queryset.filter(created_by=self.request.user)
-        return updated_queryset
+        try:
+            queryset = super().get_queryset()
+            updated_queryset = queryset.filter(created_by=self.request.user)
+            return updated_queryset
+        except Exception as e:
+            return None
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
