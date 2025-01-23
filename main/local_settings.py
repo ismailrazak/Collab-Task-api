@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # deployment checklist
-DEBUG = False
+DEBUG = True
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = False
