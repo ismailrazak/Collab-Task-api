@@ -29,5 +29,5 @@ jobs:
       run: |
         pytest
     - name: Generate code coverage badge
-      run: !
+      run: |
         coverage-badge -o coverage.svg
