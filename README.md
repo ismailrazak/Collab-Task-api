@@ -1,5 +1,5 @@
 # Collaborative Task Management Application
-
+![coverage.svg](coverage.svg)
 ## Live Web Link:
 https://web-production-f181e.up.railway.app/api/houses/
 
