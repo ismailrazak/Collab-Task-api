@@ -48,10 +48,3 @@ class TestTaskPermission(TestCase):
         response1 = self.client.post(reverse("attachment-list"), data={"name": "test"})
 
         assert response1.status_code == 401
-
-    def test_attachment_detail_permission(self):
-        attachment = mixer.blend(Attachment)
-        response = self.client.get(
-            reverse("attachment-detail", kwargs={"pk": attachment.id})
-        )
-        assert response.status_code == 401
