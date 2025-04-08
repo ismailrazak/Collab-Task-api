@@ -6,3 +6,4 @@ __pycache__
 .env
 task-api-a447509-0edcc1968d00.json
 main/local_settings.py
+.pytest_cache/
