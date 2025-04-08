@@ -1,9 +1,12 @@
 from django.contrib.auth import get_user_model
+from django.db.models import Prefetch
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, status
 from rest_framework.decorators import action, permission_classes
 from rest_framework.views import Response
 from rest_framework.viewsets import ModelViewSet
+
+from tasks.models import Attachment, Task, TaskList
 
 from .models import House
 from .permissions import IsHouseManagerOrNone
@@ -12,7 +15,17 @@ from .serializers import HouseSerializer
 
 class HouseViewSet(ModelViewSet):
     models = House
-    queryset = House.objects.all()
+    # query only what is required in the view, for eg here in the view only house is required
+    # within that menmbers are there tasklist are there not tasks and attachments so no need
+    # for that.
+    # do this for this viewset.
+    queryset = House.objects.select_related("manager").prefetch_related(
+        "task_lists", "members"
+    )
+    # not this as here all the tasks and attachments are unnecssary and increase the queries.
+    # queryset = House.objects.select_related('manager').prefetch_related("task_lists__tasks__attachments",'members')
+
+    # queryset = House.objects.all()
     serializer_class = HouseSerializer
     permission_classes = (IsHouseManagerOrNone,)
     filter_backends = (

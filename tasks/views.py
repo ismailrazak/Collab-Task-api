@@ -19,7 +19,10 @@ from .serializers import AttachmentSerializer, TaskListSerializer, TaskSerialize
 
 
 class TaskViewSet(ModelViewSet):
-    queryset = Task.objects.all()
+    queryset = Task.objects.select_related(
+        "created_by", "completed_by", "tasklist"
+    ).prefetch_related("attachments")
+    # queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = (IsAllowedToEditTaskOrNone,)
     filter_backends = (DjangoFilterBackend,)

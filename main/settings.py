@@ -36,10 +36,10 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    CSRF_TRUSTED_ORIGINS = ["https://web-production-f181e.up.railway.app/*"]
+    CSRF_TRUSTED_ORIGINS = ["https://web-production-8986c.up.railway.app/*"]
 
 SECRET_KEY = config("SECRET_KEY")
-ALLOWED_HOSTS = ["web-production-f181e.up.railway.app", "127.0.0.1"]
+ALLOWED_HOSTS = ["web-production-8986c.up.railway.app", "127.0.0.1"]
 
 # Application definition
 

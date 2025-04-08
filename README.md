@@ -2,7 +2,7 @@
 ![coverage.svg](coverage.svg)
 ![Actions](https://github.com/ismailrazak/Collab-Task-api/actions/workflows/django.yml/badge.svg)
 ## Live Web Link:
-https://web-production-f181e.up.railway.app/api/houses/
+https://web-production-8986c.up.railway.app/api/houses/
 
 A collaborative task management app for households to create, assign, and complete tasks. Integrated a point-based system to boost participation and accountability, with real-time task tracking. Designed to enhance productivity and promote teamwork in shared living spaces.
 
